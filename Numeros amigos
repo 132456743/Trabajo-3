@@ -1,0 +1,100 @@
+import java.util.Scanner;
+
+public class NumerosAmigos {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        final int OPCION_MOSTRAR_TODO = 1;
+        final int OPCION_SOLO_RESULTADO = 2;
+
+        char continuar;
+
+        do {
+            System.out.println("Numeros Amigos");
+
+            System.out.print("Ingrese el primer número entero positivo: ");
+            int num1 = scanner.nextInt();
+
+            while (num1 <= 0) {
+                System.out.print("El numero debe ser mayor a 0 ");
+                num1 = scanner.nextInt();
+            }
+
+            System.out.print("Ingrese el segundo número entero positivo: ");
+            int num2 = scanner.nextInt();
+            while (num2 <= 0) {
+                System.out.print("El numero debe ser mayor a 0");
+                num2 = scanner.nextInt();
+            }
+            int sumaDivisoresNum1 = 0;
+            int sumaDivisoresNum2 = 0;
+            int contadorDivisores1 = 0;
+            int contadorDivisores2 = 0;
+
+            for (int i = 1; i < num1; i++) {
+                if (num1 % i == 0) {
+                    sumaDivisoresNum1 += i;
+                    contadorDivisores1++;
+                }
+            }
+
+            for (int j = 1; j < num2; j++) {
+                if (num2 % j == 0) {
+                    sumaDivisoresNum2 += j;
+                    contadorDivisores2++;
+                }
+            }
+
+            boolean sonAmigos = (sumaDivisoresNum1 == num2) && (sumaDivisoresNum2 == num1);
+
+            System.out.println("Visualizacion");
+            System.out.println("1. Mostrar suma de divisores y detalle completo");
+            System.out.println("2. Mostrar únicamente el resultado de la comparación");
+            System.out.print("Seleccione una opción (1-2): ");
+            int opcionVisualizacion = scanner.nextInt();
+
+            System.out.println("Resultador");
+            switch (opcionVisualizacion) {
+                case OPCION_MOSTRAR_TODO:
+                    System.out.println("Número 1: " + num1);
+                    System.out.println(" - Cantidad de divisores propios encontrados: " + contadorDivisores1);
+                    System.out.println(" - Suma de divisores propios: " + sumaDivisoresNum1);
+
+                    System.out.println("\nNúmero 2: " + num2);
+                    System.out.println(" - Cantidad de divisores propios encontrados: " + contadorDivisores2);
+                    System.out.println(" - Suma de divisores propios: " + sumaDivisoresNum2);
+
+                    System.out.println("Resultado de la comparacion:");
+                    if (sonAmigos) {
+                        System.out.println("¡Los números " + num1 + " y " + num2 + " SÍ son números amigos!");
+                    } else {
+                        System.out.println("Los números " + num1 + " y " + num2 + " NO son números amigos.");
+                    }
+                    break;
+
+                case OPCION_SOLO_RESULTADO:
+                    if (sonAmigos) {
+                        System.out.println("¡SÍ son números amigos (" + num1 + " y " + num2 + ")!");
+                    } else {
+                        System.out.println("NO son números amigos (" + num1 + " y " + num2 + ").");
+                    }
+                    break;
+
+                default:
+                    System.out.println("Opción no válida. Mostrando resultado estándar por defecto:");
+                    if (sonAmigos) {
+                        System.out.println("¡Los números " + num1 + " y " + num2 + " SÍ son números amigos!");
+                    } else {
+                        System.out.println("Los números " + num1 + " y " + num2 + " NO son números amigos.");
+                    }
+                    break;
+            }
+
+            System.out.print("\n¿Desea analizar otra pareja de números? (s/n): ");
+            continuar = scanner.next().toLowerCase().charAt(0);
+
+        } while (continuar == 's');
+
+    }
+}
